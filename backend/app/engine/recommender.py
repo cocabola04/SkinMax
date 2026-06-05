@@ -6,7 +6,7 @@ def get_advice(scan_results):
 
     tone = skin.get("tone", "")  # fitzpatrick_1 to fitzpatrick_6
     undertone = skin.get("undertone", "")  # warm / cool / neutral
-    acne_severity = acne.get("overall_severity", "")  # mild / moderate / severe
+    acne_severity = acne.get("overall_severity", "").lower()  # mild / moderate / severe
     hair_type = hair.get("type", "")  # straight / wavy / curly / coily
     dark_severity = dark.get("severity", "")  # none / mild / severe
 
@@ -18,27 +18,21 @@ def get_advice(scan_results):
     eye_advice = []
 
     # ── Fitzpatrick type ──────────────────────────────────────────
-    fitz_num = 0
-    if tone:
-        try:
-            fitz_num = int(tone.split("_")[-1])
-        except:
-            pass
+    tone = skin.get("tone", "").lower()
 
-    if fitz_num in [1, 2]:
-        routine_am.append("SPF 50+ sunscreen — your skin burns easily, this is non-negotiable")
-        lifestyle.append("Reapply sunscreen every 2 hours outdoors")
-        lifestyle.append("Niacinamide serum helps with redness and barrier repair")
-    elif fitz_num == 3:
-        routine_am.append("SPF 30–50 sunscreen daily")
-        lifestyle.append("Introduce retinoids and acids gradually")
-        lifestyle.append("Vitamin C serum in AM helps prevent early pigmentation")
-    elif fitz_num in [4, 5, 6]:
-        routine_am.append("Daily SPF is critical — unprotected sun exposure darkens acne marks significantly")
-        lifestyle.append("Introduce all actives slowly — irritation triggers hyperpigmentation in deeper skin tones")
-        lifestyle.append("Azelaic acid is your best friend for fading dark marks safely")
-        lifestyle.append("Avoid inflammation at all costs — it directly causes pigmentation")
-
+    if "very light" in tone or ("light" in tone and "medium" not in tone):
+            routine_am.append("SPF 50+ sunscreen — your skin burns easily, this is non-negotiable")
+            lifestyle.append("Reapply sunscreen every 2 hours outdoors")
+            lifestyle.append("Niacinamide serum helps with redness and barrier repair")
+    elif "light-medium" in tone or "medium" == tone:
+            routine_am.append("SPF 30–50 sunscreen daily")
+            lifestyle.append("Introduce retinoids and acids gradually")
+            lifestyle.append("Vitamin C serum in AM helps prevent early pigmentation")
+    elif "medium-dark" in tone or "dark" in tone:
+            routine_am.append("Daily SPF is critical — unprotected sun exposure darkens acne marks significantly")
+            lifestyle.append("Introduce all actives slowly — irritation triggers hyperpigmentation in deeper skin tones")
+            lifestyle.append("Azelaic acid is your best friend for fading dark marks safely")
+            lifestyle.append("Avoid inflammation at all costs — it directly causes pigmentation")
     # ── Acne severity ─────────────────────────────────────────────
     if acne_severity == "mild":
         routine_am.append("Salicylic acid cleanser (0.5–2%) to keep pores clear")
