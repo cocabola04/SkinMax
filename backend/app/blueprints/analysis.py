@@ -60,7 +60,7 @@ def scan():
         eye_color=eye.get("color"),
         lip_color=lip.get("color"),
         health_score=None,
-        advice = get_advice(results)
+        advice_json=json.dumps(get_advice(results))
     )
 
     db.session.add(new_scan)
@@ -82,6 +82,6 @@ def scan():
             "eye_color": eye.get("color"),
             "hair_type": hair.get("type"),
             "dark_circles": dark.get("severity"),
-            "advice": advice
+            "advice": get_advice(results)
         }
     }), 200
