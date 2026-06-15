@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
 import { auth } from "../Firebase";
 
-import "../styles/ProgressPage.css";
+import "../styles/progressPage.css";
 
 export default function ProgressPage() {
   const [history, setHistory] = useState([]);
