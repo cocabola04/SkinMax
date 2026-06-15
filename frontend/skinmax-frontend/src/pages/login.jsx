@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { loginWithGoogle } from "../firebase";
+import { loginWithGoogle } from "../Firebase";
 import "../styles/login.css";
 
 export default function Login() {
